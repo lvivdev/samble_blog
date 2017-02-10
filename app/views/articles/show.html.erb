@@ -3,6 +3,19 @@
 <p><%= @article.text %></p>
 <!-- Adding comments for specific article -->
 <p>
+
+  <h2>
+    Comments:
+  </h2>
+  <p>
+    <% @article.comments.each do |f| %>
+      <p>
+        <i><%= f.author %> said:</i>
+        <%= f.body %>
+      </p>
+    <% end %>
+  </p>
+
   <h2>
     Add comment:
   </h2>
@@ -25,14 +38,3 @@
     <hr />
 </p>
 <!-- Block display comments for specific article -->
-<h2>
-  Comments:
-</h2>
-<p>
-  <% @article.comments.each do |f| %>
-    <p>
-      <%= f.author %>:
-      <%= f.body %>
-    </p>
-  <% end %>
-</p>
