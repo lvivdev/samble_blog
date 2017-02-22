@@ -1,18 +1,25 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!, :only => [:create]
 
+  def new   
+  end
+
   def create
     @article = Article.find(params[:article_id])
-    @article.comments.create(comment_params)   
+    @comment = @article.comments.create(comment_params)
+    @comment.user_id = current_user.id
 
-    redirect_to article_path(@article)
-
+    if @comment.save
+      redirect_to article_path(@article)
+    else
+      render plain: 'Message is not saved'      
+    end
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:author, :body)
+    params.require(:comment).permit(:body)
   end
 
 end
